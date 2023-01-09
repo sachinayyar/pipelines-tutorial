@@ -9,9 +9,9 @@ spec:
   - name: deployment-name
     value: vote-ui
   - name: git-url
-    value: http://github.com/openshift-pipelines/vote-ui.git
+    value: http://github.com/sachinayyar/vote-ui.git
   - name: IMAGE
-    value: image-registry.openshift-image-registry.svc:5000/pipelines-tutorial/vote-ui
+    value: image-registry.openshift-image-registry.svc:5000/new-tekton/vote-ui
   workspaces:
   - name: shared-workspace
     volumeClaimTemplate:
