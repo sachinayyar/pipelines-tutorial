@@ -1,10 +1,16 @@
 apiVersion: tekton.dev/v1beta1
 kind: Pipeline
+
+# PIPELINE NAME 
+
 metadata:
   name: build-and-deploy
 spec:
   workspaces:
   - name: shared-workspace
+  
+  # PARAMETERS 
+  
   params:
   - name: deployment-name
     type: string
@@ -19,6 +25,9 @@ spec:
   - name: IMAGE
     type: string
     description: image to be build from the code
+    
+    # TASK 01 FETCHING REPO
+    
   tasks:
   - name: fetch-repository
     taskRef:
@@ -36,6 +45,9 @@ spec:
       value: "true"
     - name: revision
       value: $(params.git-revision)
+      
+      # TASK 02 BUILDING IMAGE WITH USING DOCKERFILE IN BUILDAH
+      
   - name: build-image
     taskRef:
       name: buildah
@@ -50,6 +62,9 @@ spec:
       workspace: shared-workspace
     runAfter:
     - fetch-repository
+    
+    # TASK 03 APPLYING MANIFESTS.....DEPLOYMENT, SERVICES & ROUTES
+    
   - name: apply-manifests
     taskRef:
       name: apply-manifests
@@ -58,6 +73,9 @@ spec:
       workspace: shared-workspace
     runAfter:
     - build-image
+    
+    # TASK 04 UPDATING DEPLOYMENT
+    
   - name: update-deployment
     taskRef:
       name: update-deployment
