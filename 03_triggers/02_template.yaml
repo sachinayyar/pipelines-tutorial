@@ -1,7 +1,7 @@
 apiVersion: triggers.tekton.dev/v1alpha1
 kind: TriggerTemplate
 metadata:
-  name: vote-app
+  name: node-login
 spec:
   params:
   - name: git-repo-url
@@ -29,7 +29,7 @@ spec:
       - name: git-revision
         value: $(tt.params.git-revision)
       - name: IMAGE
-        value: image-registry.openshift-image-registry.svc:5000/new-tekton/$(tt.params.git-repo-name)
+        value: quay.io/sachinayyar/node-login:latest
       workspaces:
       - name: shared-workspace
         volumeClaimTemplate:
