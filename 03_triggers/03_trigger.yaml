@@ -1,10 +1,10 @@
 apiVersion: triggers.tekton.dev/v1alpha1
 kind: Trigger
 metadata:
-  name: node-trigger
+  name: tekton-trigger
 spec:
   serviceAccountName: pipeline
   bindings:
-   - ref: node-login
+   - ref: tekton-argocd
   template:
-   name: node-login
+   name: tekton-argocd
